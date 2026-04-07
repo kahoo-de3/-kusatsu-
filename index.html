@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>草津温泉 観光ガイド｜ラビスタ草津ヒルズ発</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+    :root {
+      --cream: #faf6ef;
+      --warm-white: #fff9f0;
+      --deep-indigo: #1a2744;
+      --onsen-blue: #2e5f8a;
+      --onsen-teal: #3a8a7e;
+      --steam-gray: #8a9bb0;
+      --warm-amber: #c97c2a;
+      --sakura: #e8a0b0;
+      --gold: #c9a84c;
+      --soft-brown: #7a5c3a;
+      --light-blue: #e8f4f8;
+      --light-teal: #e0f4f1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--cream);
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--deep-indigo);
+      min-height: 100vh;
+    }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, #0d1b2e 0%, #1a2e50 40%, #1e4060 70%, #0e2a3a 100%);
+      color: white;
+      padding: 80px 24px 100px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(62, 130, 160, 0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 30%, rgba(100, 80, 200, 0.15) 0%, transparent 50%);
+    }
+
+    /* Steam animation */
+    .steam-container {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .steam {
+      position: absolute;
+      bottom: 0;
+      width: 4px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      animation: rise linear infinite;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scaleX(1); opacity: 0; }
+      20% { opacity: 0.6; }
+      80% { opacity: 0.3; }
+      100% { transform: translateY(-120px) scaleX(3); opacity: 0; }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 30px;
+      padding: 6px 20px;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      line-height: 1.3;
+      position: relative;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    }
+
+    .hero h1 span {
+      color: #7ed8d0;
+    }
+
+    .hero-subtitle {
+      margin-top: 16px;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.1em;
+      position: relative;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .hero-meta-item {
+      text-align: center;
+    }
+    .hero-meta-item .num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #7ed8d0;
+    }
+    .hero-meta-item .label {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.1em;
+      margin-top: 2px;
+    }
+
+    /* ===================== SECTION HEADER ===================== */
+    .section-header {
+      text-align: center;
+      padding: 60px 24px 32px;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--steam-gray);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--steam-gray);
+    }
+    .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--deep-indigo);
+      line-height: 1.4;
+    }
+    .section-title .accent {
+      color: var(--onsen-teal);
+    }
+
+    /* ===================== CONTAINER ===================== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===================== CARDS ===================== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      padding: 0 24px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(26,39,68,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(26,39,68,0.15);
+    }
+
+    .card-header {
+      padding: 20px 22px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .card-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card-type-sightseeing .card-number { background: var(--onsen-blue); color: white; }
+    .card-type-lunch .card-number { background: var(--warm-amber); color: white; }
+    .card-type-dinner .card-number { background: #5a2d82; color: white; }
+
+    .card-title-block { flex: 1; }
+    .card-category {
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    .card-type-sightseeing .card-category { color: var(--onsen-blue); }
+    .card-type-lunch .card-category { color: var(--warm-amber); }
+    .card-type-dinner .card-category { color: #7b44b0; }
+
+    .card-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--deep-indigo);
+      line-height: 1.35;
+    }
+
+    .card-body {
+      padding: 12px 22px 18px;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: #5a6a82;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.78rem;
+    }
+
+    .meta-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    .card-type-sightseeing .meta-icon { background: var(--light-blue); }
+    .card-type-lunch .meta-icon { background: #fef3e2; }
+    .card-type-dinner .meta-icon { background: #f0e8f8; }
+
+    .meta-label {
+      font-weight: 700;
+      color: #6a7a90;
+      min-width: 48px;
+    }
+    .meta-value {
+      color: var(--deep-indigo);
+      line-height: 1.5;
+    }
+
+    .walk-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-top: 14px;
+    }
+    .card-type-sightseeing .walk-badge { background: var(--light-blue); color: var(--onsen-blue); }
+    .card-type-lunch .walk-badge { background: #fef3e2; color: var(--warm-amber); }
+    .card-type-dinner .walk-badge { background: #f0e8f8; color: #7b44b0; }
+
+    .onsen-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: linear-gradient(135deg, var(--onsen-teal), #2a7a70);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      box-shadow: 0 2px 8px rgba(58,138,126,0.4);
+    }
+
+    .card-divider {
+      height: 1px;
+      background: #f0f3f8;
+      margin: 0 22px;
+    }
+
+    .card-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 22px;
+      font-size: 0.75rem;
+      color: var(--steam-gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .card-link:hover { color: var(--onsen-teal); }
+    .card-link-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .card-link-arrow { font-size: 0.8rem; flex-shrink: 0; }
+
+    /* ===================== SECTION SEPARATOR ===================== */
+    .section-sep {
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--onsen-teal), transparent);
+      margin: 10px auto 0;
+      max-width: 200px;
+      border-radius: 2px;
+    }
+
+    /* ===================== SECTION BG VARIANTS ===================== */
+    .bg-light { background: var(--warm-white); }
+    .bg-teal { background: linear-gradient(180deg, #f0faf8 0%, #e8f6f4 100%); }
+    .bg-warm { background: linear-gradient(180deg, #fff8ef 0%, #faf2e4 100%); }
+    .bg-purple { background: linear-gradient(180deg, #f5f0fc 0%, #efe8f8 100%); }
+
+    /* ===================== WALK LEGEND ===================== */
+    .walk-legend {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      padding: 0 24px;
+    }
+    .walk-legend-inner {
+      background: white;
+      border-radius: 16px;
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 12px rgba(26,39,68,0.07);
+    }
+    .walk-legend-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--steam-gray);
+      letter-spacing: 0.1em;
+    }
+    .walk-scale {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .walk-scale-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: #5a6a82;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-near { background: #4caf8a; }
+    .dot-mid { background: #f5a623; }
+    .dot-far { background: #e05050; }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: var(--deep-indigo);
+      color: rgba(255,255,255,0.55);
+      padding: 50px 24px 30px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.2rem;
+      color: #7ed8d0;
+      margin-bottom: 8px;
+    }
+    .footer-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 28px;
+    }
+    .sources-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+    .sources-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 16px;
+      list-style: none;
+      max-width: 800px;
+      margin: 0 auto 28px;
+    }
+    .sources-list a {
+      color: rgba(126, 216, 208, 0.7);
+      font-size: 0.68rem;
+      text-decoration: none;
+    }
+    .sources-list a:hover { color: #7ed8d0; text-decoration: underline; }
+    .footer-note {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 20px;
+      line-height: 1.7;
+    }
+
+    /* ===================== CATEGORY HEADER BAR ===================== */
+    .category-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto 24px;
+      padding: 0 24px;
+    }
+    .category-bar-icon {
+      font-size: 1.8rem;
+    }
+    .category-bar-text .big {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--deep-indigo);
+    }
+    .category-bar-text .small {
+      font-size: 0.72rem;
+      color: var(--steam-gray);
+      letter-spacing: 0.1em;
+    }
+    .category-bar-line {
+      flex: 1;
+      height: 1px;
+    }
+    .line-blue { background: linear-gradient(90deg, var(--onsen-blue), transparent); }
+    .line-amber { background: linear-gradient(90deg, var(--warm-amber), transparent); }
+    .line-purple { background: linear-gradient(90deg, #7b44b0, transparent); }
+
+  </style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<div class="hero">
+  <!-- Steam elements -->
+  <div class="steam-container">
+    <div class="steam" style="left:8%;width:6px;animation-duration:4s;animation-delay:0s;height:80px"></div>
+    <div class="steam" style="left:18%;width:4px;animation-duration:5s;animation-delay:1s;height:60px"></div>
+    <div class="steam" style="left:30%;width:7px;animation-duration:3.5s;animation-delay:0.5s;height:90px"></div>
+    <div class="steam" style="left:50%;width:5px;animation-duration:4.5s;animation-delay:2s;height:70px"></div>
+    <div class="steam" style="left:65%;width:6px;animation-duration:4s;animation-delay:0.7s;height:80px"></div>
+    <div class="steam" style="left:80%;width:4px;animation-duration:5s;animation-delay:1.5s;height:65px"></div>
+    <div class="steam" style="left:92%;width:7px;animation-duration:3.5s;animation-delay:0.3s;height:85px"></div>
+  </div>
+
+  <div style="position:relative">
+    <div class="hero-badge">🏨 ラビスタ草津ヒルズ 発　｜　群馬県 草津温泉</div>
+    <h1>
+      徒歩で巡る<br><span>草津温泉</span> 完全ガイド
+    </h1>
+    <p class="hero-subtitle">観光スポット・ランチ・ディナー ― 厳選 15 選</p>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="num">5</div>
+        <div class="label">観光スポット</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="num">5</div>
+        <div class="label">ランチ</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="num">5</div>
+        <div class="label">ディナー</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="num">♨</div>
+        <div class="label">温泉情報付き</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===================== SIGHTSEEING ===================== -->
+<div class="bg-teal" style="padding-top:10px">
+  <div class="section-header">
+    <div class="section-label">Sightseeing</div>
+    <h2 class="section-title">観光スポット <span class="accent">5 選</span></h2>
+    <div class="section-sep"></div>
+  </div>
+
+  <div class="category-bar">
+    <span class="category-bar-icon">🗺</span>
+    <div class="category-bar-text">
+      <div class="big">徒歩圏内の見どころ</div>
+      <div class="small">SIGHTSEEING SPOTS · WALKING FROM LA VISTA</div>
+    </div>
+    <div class="category-bar-line line-blue"></div>
+  </div>
+
+  <div class="cards-grid">
+
+    <!-- 1. 湯畑 -->
+    <div class="card card-type-sightseeing">
+      <div class="card-header">
+        <div class="card-number">1</div>
+        <div class="card-title-block">
+          <div class="card-category">草津のシンボル</div>
+          <div class="card-title">湯畑</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          毎分4,000リットルもの源泉が湧き出す草津温泉のシンボル。白い湯気が立ち上る幻想的な光景が広がり、夜は美しくライトアップされます。囲いの木枠で湯の花を採取する伝統的な姿も見られます。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">24時間（終日開放）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">なし（年中無休）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">💴</div>
+            <span class="meta-label">入場料</span>
+            <span class="meta-value">無料</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約5分（約400m）</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://www.kusatsu-onsen.ne.jp/top.php" target="_blank">
+        <span class="card-link-text">出典：草津温泉観光協会公式</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- 2. 熱乃湯 -->
+    <div class="card card-type-sightseeing">
+      <div class="onsen-badge">♨ 温泉体験</div>
+      <div class="card-header">
+        <div class="card-number">2</div>
+        <div class="card-title-block">
+          <div class="card-category">湯もみ体験・ショー</div>
+          <div class="card-title">草津温泉 熱乃湯</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          草津の伝統「湯もみと踊り」を鑑賞できる観光施設。横幅180cmの巨大な湯もみ板で温泉を冷ます伝統芸を毎日6回公演。希望者は実際に湯もみを体験することもできます。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">公演時間</span>
+            <span class="meta-value">9:30 / 10:00 / 10:30<br>15:30 / 16:00 / 16:30</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">不定休（要確認）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">💴</div>
+            <span class="meta-label">入場料</span>
+            <span class="meta-value">大人700円・子供350円</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約8分（湯畑＋4分）</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://www.kusatsu-onsen.ne.jp/netsunoyu/" target="_blank">
+        <span class="card-link-text">出典：草津温泉 熱乃湯 公式</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- 3. 西の河原公園 -->
+    <div class="card card-type-sightseeing">
+      <div class="card-header">
+        <div class="card-number">3</div>
+        <div class="card-title-block">
+          <div class="card-category">自然湧出・夜景スポット</div>
+          <div class="card-title">西の河原公園</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          公園内のいたるところから温泉が自然湧出する幻想的な公園。川沿いに温泉が流れ、硫黄の香りが漂います。日没後～22:00はライトアップされ、青白い光に照らされた湯煙が絶景です。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">終日開放 / ライトアップ 日没〜22:00</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">なし（年中無休）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">💴</div>
+            <span class="meta-label">入場料</span>
+            <span class="meta-value">無料</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約15分（約1.1km）</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://www.kusatsu-onsen.ne.jp/top.php" target="_blank">
+        <span class="card-link-text">出典：草津温泉観光協会公式</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- 4. 西の河原露天風呂 -->
+    <div class="card card-type-sightseeing">
+      <div class="onsen-badge">♨ 入浴施設</div>
+      <div class="card-header">
+        <div class="card-number">4</div>
+        <div class="card-title-block">
+          <div class="card-category">草津三湯のひとつ</div>
+          <div class="card-title">西の河原露天風呂</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          約500平米の巨大な露天風呂で「草津三湯」のひとつ。西の河原公園内の豊かな自然に囲まれ、開放感あふれる湯浴みが楽しめます。男女別の大露天風呂と混浴の大浴場があります。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">4〜11月 7:00〜20:00<br>12〜3月 9:00〜20:00（最終入館19:30）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">不定休（要確認）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">💴</div>
+            <span class="meta-label">入浴料</span>
+            <span class="meta-value">大人800円・子供400円</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約20分（約1.5km）</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://onsen-kusatsu.com/sainokawara/" target="_blank">
+        <span class="card-link-text">出典：西の河原露天風呂 公式</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- 5. 大滝乃湯 -->
+    <div class="card card-type-sightseeing">
+      <div class="onsen-badge">♨ 入浴施設</div>
+      <div class="card-header">
+        <div class="card-number">5</div>
+        <div class="card-title-block">
+          <div class="card-category">草津三湯のひとつ</div>
+          <div class="card-title">草津温泉 大滝乃湯</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          「草津三湯」のひとつで、合わせ湯・露天風呂・打たせ湯・サウナなど多彩な湯浴みが楽しめる充実の温泉施設。昔ながらの「合わせ湯」は温度の低い浴槽から高い浴槽へと順に入る草津独特の入浴法です。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">9:00〜21:00（最終入館20:00）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">不定休（12月頃メンテナンス休館あり）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">💴</div>
+            <span class="meta-label">入浴料</span>
+            <span class="meta-value">大人900円・子供450円</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約15分（約1.1km）</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://onsen-kusatsu.com/ohtakinoyu/" target="_blank">
+        <span class="card-link-text">出典：大滝乃湯 公式サイト</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ===================== LUNCH ===================== -->
+<div class="bg-warm" style="padding-top:10px">
+  <div class="section-header">
+    <div class="section-label">Lunch</div>
+    <h2 class="section-title">ランチ <span class="accent">5 選</span></h2>
+    <div class="section-sep" style="background:linear-gradient(90deg,transparent,var(--warm-amber),transparent)"></div>
+  </div>
+
+  <div class="category-bar">
+    <span class="category-bar-icon">🍱</span>
+    <div class="category-bar-text">
+      <div class="big">昼食おすすめ</div>
+      <div class="small">LUNCH SPOTS · WALKING FROM LA VISTA</div>
+    </div>
+    <div class="category-bar-line line-amber"></div>
+  </div>
+
+  <div class="cards-grid">
+
+    <!-- L1. まんてん -->
+    <div class="card card-type-lunch">
+      <div class="card-header">
+        <div class="card-number">1</div>
+        <div class="card-title-block">
+          <div class="card-category">釜飯・串焼き</div>
+          <div class="card-title">草津湯畑 まんてん</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          湯畑の目の前に立つロケーション抜群の人気店。2階の窓際席から湯畑を見下ろしながら食事ができます。10種類以上の釜飯（鮭いくら・舞茸など）と炭火串焼きが名物。観光の合間に立ち寄りやすい。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">11:00〜15:00 / 17:00〜22:00</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">水曜日</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🍽</div>
+            <span class="meta-label">おすすめ</span>
+            <span class="meta-value">舞茸釜飯・鮭いくら釜飯</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約7分（湯畑目の前）</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://manten-kusatsu.owst.jp/" target="_blank">
+        <span class="card-link-text">出典：まんてん 公式サイト</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- L2. いいやま亭 -->
+    <div class="card card-type-lunch">
+      <div class="card-header">
+        <div class="card-number">2</div>
+        <div class="card-title-block">
+          <div class="card-category">釜飯専門店</div>
+          <div class="card-title">いいやま亭</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          湯畑から徒歩3分の老舗釜飯専門店。地元産まいたけと花いんげんを使った釜めしが名物で、炊きたてのご飯と具材の旨味が凝縮した逸品。数量限定のため早めの訪問がおすすめです。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">11:00〜売り切れ次第終了</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">不定休（要確認）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🍽</div>
+            <span class="meta-label">おすすめ</span>
+            <span class="meta-value">まいたけ釜めし・花いんげん釜めし</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約8分</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://www.travelbook.co.jp/topic/3284" target="_blank">
+        <span class="card-link-text">出典：TravelBook 草津温泉ランチ特集</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- L3. 三國家 -->
+    <div class="card card-type-lunch">
+      <div class="card-header">
+        <div class="card-number">3</div>
+        <div class="card-title-block">
+          <div class="card-category">手打ちそば</div>
+          <div class="card-title">三國家</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          石臼挽き自家製粉の手打ちそばが食べられる人気の蕎麦処。看板メニュー「三國そば」は2.5人前の盛り蕎麦で、ランチ時には行列ができるほどの人気店です。群馬の蕎麦文化を堪能できます。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">11:00〜14:30 / 17:30〜19:30</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">火曜日</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🍽</div>
+            <span class="meta-label">おすすめ</span>
+            <span class="meta-value">三國そば・天ざるそば</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約10分（湯畑より5分）</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://tabelog.com/matome/11806/" target="_blank">
+        <span class="card-link-text">出典：食べログ 草津温泉ランチまとめ</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- L4. 湯川テラス -->
+    <div class="card card-type-lunch">
+      <div class="card-header">
+        <div class="card-number">4</div>
+        <div class="card-title-block">
+          <div class="card-category">地産地消カフェ＆レストラン</div>
+          <div class="card-title">湯川テラス</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          群馬県産食材にこだわったカフェ＆レストラン。上州牛や群馬名物のおっきりこみ（幅広うどん）など地元食材をアレンジした料理が楽しめます。テラス席もあり、開放的な雰囲気で食事ができます。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">10:00〜20:00</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">不定休（年中無休に近い）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🍽</div>
+            <span class="meta-label">おすすめ</span>
+            <span class="meta-value">上州牛料理・おっきりこみ</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約8分</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://rurubu.jp/andmore/article/21734" target="_blank">
+        <span class="card-link-text">出典：るるぶ 草津温泉グルメ特集</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- L5. 暖 -->
+    <div class="card card-type-lunch">
+      <div class="card-header">
+        <div class="card-number">5</div>
+        <div class="card-title-block">
+          <div class="card-category">定食・洋食</div>
+          <div class="card-title">暖（だん）</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          湯畑すぐ前にある地元で愛される人気店。ランチからディナーまで通しで営業しており、観光客にも地元客にも人気です。定食から洋食まで幅広いメニューを提供。落ち着いた雰囲気で食事ができます。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">9:00〜15:30 / 17:00〜22:00<br>（土日祝〜23:00）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">木曜日</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🍽</div>
+            <span class="meta-label">おすすめ</span>
+            <span class="meta-value">日替わりランチ・洋食定食</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約7分（湯畑すぐ前）</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://kusatsu-food.com/" target="_blank">
+        <span class="card-link-text">出典：草津温泉うまいとこナビ（飲食店組合公式）</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ===================== DINNER ===================== -->
+<div class="bg-purple" style="padding-top:10px">
+  <div class="section-header">
+    <div class="section-label">Dinner</div>
+    <h2 class="section-title">ディナー <span class="accent">5 選</span></h2>
+    <div class="section-sep" style="background:linear-gradient(90deg,transparent,#7b44b0,transparent)"></div>
+  </div>
+
+  <div class="category-bar">
+    <span class="category-bar-icon">🍶</span>
+    <div class="category-bar-text">
+      <div class="big">夜のグルメ</div>
+      <div class="small">DINNER SPOTS · WALKING FROM LA VISTA</div>
+    </div>
+    <div class="category-bar-line line-purple"></div>
+  </div>
+
+  <div class="cards-grid">
+
+    <!-- D1. まんてん（夜） -->
+    <div class="card card-type-dinner">
+      <div class="card-header">
+        <div class="card-number">1</div>
+        <div class="card-title-block">
+          <div class="card-category">釜飯・串焼き・夜景</div>
+          <div class="card-title">草津湯畑 まんてん（夜）</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          ランチでも紹介した「まんてん」は、夜こそ絶景。ライトアップされた湯畑を2階の窓際席から眺めながら釜飯と串焼きを楽しめます。草津の夜を代表するロマンチックな食事体験です。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">17:00〜22:00（L.O. 21:00）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">水曜日</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🍽</div>
+            <span class="meta-label">おすすめ</span>
+            <span class="meta-value">釜飯・野菜巻き串・炭火焼き串</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約7分</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://manten-kusatsu.owst.jp/" target="_blank">
+        <span class="card-link-text">出典：まんてん 公式サイト</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- D2. 居酒屋 源氏 -->
+    <div class="card card-type-dinner">
+      <div class="card-header">
+        <div class="card-number">2</div>
+        <div class="card-title-block">
+          <div class="card-category">地元食材の居酒屋</div>
+          <div class="card-title">居酒屋 源氏</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          予約しないと入れないと言われる草津屈指の人気居酒屋。馬刺し・舞茸ホイル焼き・もつ煮込みなど、群馬の食材を活かした本格料理が揃います。地元民にも愛される隠れ家的な名店です。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">18:00〜24:00（L.O. 23:30）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">不定休（要予約・要確認）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🍽</div>
+            <span class="meta-label">おすすめ</span>
+            <span class="meta-value">馬刺し・舞茸ホイル焼き・もつ煮込み</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約10分</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://we-love.gunma.jp/gourmet/kusatsu-dinner" target="_blank">
+        <span class="card-link-text">出典：群馬県公式 草津ディナー特集</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- D3. 水穂 -->
+    <div class="card card-type-dinner">
+      <div class="card-header">
+        <div class="card-number">3</div>
+        <div class="card-title-block">
+          <div class="card-category">創作和食・地元食材</div>
+          <div class="card-title">水穂（みずほ）</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          湯畑から徒歩1分という最高の立地の居酒屋。最高級ニジマス「ギンヒカリ」の刺身や、上州牛のタリアータ、特製の牛モツ煮など地元食材を活かした料理が自慢。観光後にふらりと立ち寄れる好アクセスです。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">夜営業（詳細は要確認）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">不定休（要確認）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🍽</div>
+            <span class="meta-label">おすすめ</span>
+            <span class="meta-value">ギンヒカリ刺身・上州牛タリアータ</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約6分（湯畑から1分）</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://onsenosusume.net/kusatuonsen/kusatuonnsenndhina/" target="_blank">
+        <span class="card-link-text">出典：温泉おすすめドットコム ディナー特集</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- D4. 暖（夜） -->
+    <div class="card card-type-dinner">
+      <div class="card-header">
+        <div class="card-number">4</div>
+        <div class="card-title-block">
+          <div class="card-category">定食・洋食</div>
+          <div class="card-title">暖（だん）夜の部</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          湯畑すぐ前の地元で愛される人気店「暖」は、夜もにぎわいます。日中の喧騒が落ち着いた夕暮れ時に、ゆったりと食事を楽しめます。土日祝は23時まで営業しているため、温泉後の夕食にも最適です。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">17:00〜22:00<br>（土日祝は〜23:00）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">木曜日</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🍽</div>
+            <span class="meta-label">おすすめ</span>
+            <span class="meta-value">洋食定食・夜の特別メニュー</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約7分</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://kusatsu-food.com/" target="_blank">
+        <span class="card-link-text">出典：草津温泉うまいとこナビ（飲食店組合公式）</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <!-- D5. アル・ロドデンドロ -->
+    <div class="card card-type-dinner">
+      <div class="card-header">
+        <div class="card-number">5</div>
+        <div class="card-title-block">
+          <div class="card-category">隠れ家イタリアン</div>
+          <div class="card-title">リストランテ アル・ロドデンドロ</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">
+          湯畑から15分ほどの隠れ家的イタリアンレストラン。群馬県産食材を中心に、春は山菜、冬はジビエなど季節の旬食材をふんだんに使ったコース料理が評判。温泉街とは一線を画す洗練されたディナーを楽しめます。
+        </p>
+        <div class="card-meta">
+          <div class="meta-row">
+            <div class="meta-icon">⏰</div>
+            <span class="meta-label">営業時間</span>
+            <span class="meta-value">ディナー 18:00〜22:00</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🗓</div>
+            <span class="meta-label">定休日</span>
+            <span class="meta-value">毎週月曜日（祝日の場合は翌日）</span>
+          </div>
+          <div class="meta-row">
+            <div class="meta-icon">🍽</div>
+            <span class="meta-label">おすすめ</span>
+            <span class="meta-value">季節野菜のコース・ジビエ料理（冬）</span>
+          </div>
+        </div>
+        <div class="walk-badge">🚶 ラビスタから 徒歩 約20分</div>
+      </div>
+      <div class="card-divider"></div>
+      <a class="card-link" href="https://onsenosusume.net/kusatuonsen/kusatuonnsenndhina/" target="_blank">
+        <span class="card-link-text">出典：温泉おすすめドットコム ディナー特集</span>
+        <span class="card-link-arrow">↗</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="footer-logo">♨ 草津温泉 観光ガイド</div>
+  <div class="footer-sub">ラビスタ草津ヒルズ発・徒歩圏内 完全版 | 2025年版情報</div>
+
+  <div class="sources-title">参考・出典リンク</div>
+  <ul class="sources-list">
+    <li><a href="https://www.kusatsu-onsen.ne.jp/top.php" target="_blank">草津温泉観光協会 公式</a></li>
+    <li><a href="https://onsen-kusatsu.com/" target="_blank">草津三湯 公式</a></li>
+    <li><a href="https://onsen-kusatsu.com/sainokawara/" target="_blank">西の河原露天風呂 公式</a></li>
+    <li><a href="https://onsen-kusatsu.com/ohtakinoyu/" target="_blank">大滝乃湯 公式</a></li>
+    <li><a href="https://www.kusatsu-onsen.ne.jp/netsunoyu/" target="_blank">熱乃湯 公式</a></li>
+    <li><a href="https://dormy-hotels.com/resort/hotels/la_kusatsu/" target="_blank">ラビスタ草津ヒルズ 公式</a></li>
+    <li><a href="https://manten-kusatsu.owst.jp/" target="_blank">まんてん 公式</a></li>
+    <li><a href="https://kusatsu-food.com/" target="_blank">草津温泉うまいとこナビ（草津町飲食店組合公式）</a></li>
+    <li><a href="https://tabelog.com/matome/11806/" target="_blank">食べログ 草津温泉ランチまとめ</a></li>
+    <li><a href="https://we-love.gunma.jp/gourmet/kusatsu-dinner" target="_blank">群馬県公式サイト 草津ディナー</a></li>
+    <li><a href="https://rurubu.jp/andmore/article/21734" target="_blank">るるぶ 草津温泉グルメ</a></li>
+    <li><a href="https://onsenosusume.net/kusatuonsen/kusatuonnsenndhina/" target="_blank">温泉おすすめドットコム ディナー</a></li>
+    <li><a href="https://travel.rakuten.co.jp/mytrip/ranking/spot-kusatsu" target="_blank">楽天トラベル 草津観光スポット</a></li>
+    <li><a href="https://newt.net/jpn/kst/mag-30970898184" target="_blank">newt 草津おすすめ観光スポット</a></li>
+  </ul>
+
+  <div class="footer-note">
+    ※ 掲載情報は2025年時点のものです。営業時間・定休日・料金等は変更になる場合があります。<br>
+    ご訪問前に各施設・店舗へ直接ご確認されることをお勧めします。<br>
+    ※ 徒歩時間はラビスタ草津ヒルズ玄関からの概算です（地図情報・口コミ情報を参考に算出）。
+  </div>
+</footer>
+
+</body>
+</html>
