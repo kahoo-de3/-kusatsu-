@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>アセトアミノフェン 臨床報告まとめ（IF ≥ 4）</title>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --card-bg: #ffffff;
+      --accent: #2563eb;
+      --accent-light: #dbeafe;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --badge-jama: #7c3aed;
+      --badge-hepatol: #0369a1;
+      --badge-gastro: #059669;
+      --tag-bg: #f1f5f9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      max-width: 900px;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    header p.subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .meta-bar {
+      max-width: 900px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    .meta-bar span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .articles {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+      transition: box-shadow .2s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(37,99,235,.1);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-number {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-title {
+      flex: 1;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .card-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .card-title a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .badge-if {
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      white-space: nowrap;
+    }
+
+    .journal-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.9rem;
+      font-size: 0.82rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      background: var(--tag-bg);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .tag.journal {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .tag.type-rct   { background: #dcfce7; color: #166534; }
+    .tag.type-cohort { background: #fef9c3; color: #713f12; }
+    .tag.type-meta  { background: #fce7f3; color: #9d174d; }
+
+    .summary {
+      font-size: 0.93rem;
+      color: var(--text);
+      background: #f8fafc;
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 0.9rem;
+    }
+
+    .summary strong {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .pmid {
+      font-family: monospace;
+      font-size: 0.8rem;
+    }
+
+    .btn-pubmed {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .15s;
+    }
+
+    .btn-pubmed:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-doi {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .15s;
+    }
+
+    .btn-doi:hover {
+      background: var(--accent-light);
+    }
+
+    footer {
+      max-width: 900px;
+      margin: 2.5rem auto 0;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>アセトアミノフェン 臨床報告まとめ</h1>
+  <p class="subtitle">PubMed 収載論文 ／ インパクトファクター 4.0 以上のジャーナルに限定</p>
+</header>
+
+<div class="meta-bar">
+  <span>掲載件数: <strong>5件</strong></span>
+  <span>対象期間: 2024–2026年</span>
+  <span>検索日: 2026年4月16日</span>
+</div>
+
+<div class="articles">
+
+  <!-- 1 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">1</div>
+      <div class="card-title">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/38762798/" target="_blank" rel="noopener">
+          Acetaminophen for Prevention and Treatment of Organ Dysfunction in Critically Ill Patients With Sepsis: The ASTER Randomized Clinical Trial
+        </a>
+      </div>
+      <span class="badge-if">IF ≈ 120</span>
+    </div>
+
+    <div class="journal-info">
+      <span class="tag journal">JAMA</span>
+      <span class="tag">2024年8月6日</span>
+      <span class="tag">Vol.332(5): 390–400</span>
+      <span class="tag type-rct">RCT・Phase 2b</span>
+      <span class="tag">DOI: 10.1001/jama.2024.9093</span>
+    </div>
+
+    <div class="summary">
+      <strong>要約</strong>
+      重症敗血症患者における臓器機能保護を目的としたアセトアミノフェン静注（1g×4回/日、5日間）とプラセボを比較した多施設二重盲検RCT（米国40施設、447名）。主要評価項目である28日間臓器補助不要生存日数（20.2日 vs 19.6日）に有意差は認めなかったが、副次的にARDS発症率の有意な低下（2.2% vs 8.5%）およびSOFAスコアの改善が観察された。アセトアミノフェンの安全性は確認されており、敗血症患者の呼吸・凝固機能保護に関する今後の研究の基盤となる結果である。
+    </div>
+
+    <div class="card-footer">
+      <span class="pmid">PMID: 38762798</span>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <a class="btn-doi" href="https://doi.org/10.1001/jama.2024.9093" target="_blank" rel="noopener">DOI</a>
+        <a class="btn-pubmed" href="https://pubmed.ncbi.nlm.nih.gov/38762798/" target="_blank" rel="noopener">PubMed</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">2</div>
+      <div class="card-title">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/38592388/" target="_blank" rel="noopener">
+          Acetaminophen Use During Pregnancy and Children's Risk of Autism, ADHD, and Intellectual Disability
+        </a>
+      </div>
+      <span class="badge-if">IF ≈ 120</span>
+    </div>
+
+    <div class="journal-info">
+      <span class="tag journal">JAMA</span>
+      <span class="tag">2024年4月9日</span>
+      <span class="tag">Vol.331(14): 1205–1214</span>
+      <span class="tag type-cohort">コホート研究（兄弟対照）</span>
+      <span class="tag">DOI: 10.1001/jama.2024.3172</span>
+    </div>
+
+    <div class="summary">
+      <strong>要約</strong>
+      スウェーデン全国登録データを用いた大規模コホート研究で、妊娠中のアセトアミノフェン使用が子供の自閉症・ADHD・知的障害リスクに与える影響を兄弟対照解析で検討。兄弟対照モデルでは、自閉症（HR 0.98）・ADHD（HR 0.98）・知的障害（HR 1.01）のいずれにおいても有意なリスク上昇は認められず、従来の非対照研究で示された関連は交絡因子によるバイアスである可能性が示唆された。妊娠中のアセトアミノフェン使用の安全性を支持する重要なエビデンスとなっている。
+    </div>
+
+    <div class="card-footer">
+      <span class="pmid">PMID: 38592388</span>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <a class="btn-doi" href="https://doi.org/10.1001/jama.2024.3172" target="_blank" rel="noopener">DOI</a>
+        <a class="btn-pubmed" href="https://pubmed.ncbi.nlm.nih.gov/38592388/" target="_blank" rel="noopener">PubMed</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">3</div>
+      <div class="card-title">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/41505155/" target="_blank" rel="noopener">
+          Acetaminophen (Paracetamol) or Opioid Analgesia Added to Ibuprofen for Children's Musculoskeletal Injury: Two Randomized Clinical Trials
+        </a>
+      </div>
+      <span class="badge-if">IF ≈ 120</span>
+    </div>
+
+    <div class="journal-info">
+      <span class="tag journal">JAMA</span>
+      <span class="tag">2026年1月8日</span>
+      <span class="tag type-rct">RCT（2試験）</span>
+      <span class="tag">小児救急</span>
+    </div>
+
+    <div class="summary">
+      <strong>要約</strong>
+      カナダの6施設小児救急を舞台に、急性非手術的四肢損傷（疼痛スコア≥5）を有する6〜17歳の小児を対象として、イブプロフェン単独 vs イブプロフェン＋アセトアミノフェン vs イブプロフェン＋ヒドロモルフォン（オピオイド）の3群を比較した二重盲検RCT。60分後の疼痛スコアにおいてイブプロフェン単独との有意差は認められなかった。オピオイド群では有害事象（眠気・嘔気など）が4倍以上多く（28.2% vs 5.8%）、単純骨折・捻挫に対してはイブプロフェン単独が最善の選択肢であることが示された。
+    </div>
+
+    <div class="card-footer">
+      <span class="pmid">PMID: 41505155</span>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <a class="btn-pubmed" href="https://pubmed.ncbi.nlm.nih.gov/41505155/" target="_blank" rel="noopener">PubMed</a>
+        <a class="btn-doi" href="https://jamanetwork.com/journals/jama/article-abstract/2843665" target="_blank" rel="noopener">Full Text</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">4</div>
+      <div class="card-title">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/40414507/" target="_blank" rel="noopener">
+          A Non-Inferiority Randomised Controlled Trial of a Shorter Acetylcysteine Regimen for Paracetamol Overdose – The SARPO Trial
+        </a>
+      </div>
+      <span class="badge-if">IF ≈ 26</span>
+    </div>
+
+    <div class="journal-info">
+      <span class="tag journal">Journal of Hepatology</span>
+      <span class="tag">2025年</span>
+      <span class="tag type-rct">非劣性RCT</span>
+      <span class="tag">過量服薬・解毒療法</span>
+    </div>
+
+    <div class="summary">
+      <strong>要約</strong>
+      アセトアミノフェン急性過量服薬（≤30g・8時間以内）の患者204名を対象に、標準20時間アセチルシステイン投与レジメンと短縮12時間レジメンを比較した多施設非劣性RCT（オーストラリア）。主要評価項目の24時間後ALT変動量（ΔALT24）で短縮レジメンは標準レジメンに対し非劣性を達成（差の中央値 −1 U/L、95%CI −3〜1、非劣性マージン5 U/L以内）。過敏反応発現率も両群で同等（8% vs 10%）であり、治療時間をほぼ半分に短縮できる安全・有効なレジメンとして今後の臨床応用が期待される。
+    </div>
+
+    <div class="card-footer">
+      <span class="pmid">PMID: 40414507</span>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <a class="btn-doi" href="https://www.journal-of-hepatology.eu/article/S0168-8278(25)02206-8/fulltext" target="_blank" rel="noopener">Full Text</a>
+        <a class="btn-pubmed" href="https://pubmed.ncbi.nlm.nih.gov/40414507/" target="_blank" rel="noopener">PubMed</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-number">5</div>
+      <div class="card-title">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/38994834/" target="_blank" rel="noopener">
+          Association of Acetaminophen (Paracetamol) Use With Severity and Outcomes in Patients With Viral Hepatitis-Associated Acute Liver Failure
+        </a>
+      </div>
+      <span class="badge-if">IF ≈ 13</span>
+    </div>
+
+    <div class="journal-info">
+      <span class="tag journal">American Journal of Gastroenterology</span>
+      <span class="tag">2025年3月</span>
+      <span class="tag">Vol.120(3): 584–592</span>
+      <span class="tag type-cohort">前向き多施設コホート</span>
+      <span class="tag">DOI: 10.14309/ajg.0000000000002941</span>
+    </div>
+
+    <div class="summary">
+      <strong>要約</strong>
+      米国Acute Liver Failure Study Groupによる前向き多施設コホート研究で、ウイルス性肝炎（A型・B型・EBV・HSV）関連急性肝不全患者356名を対象にアセトアミノフェン使用の影響を解析。アセトアミノフェンの使用はウイルス性肝炎関連急性肝不全患者において一般的であり、使用群は非使用群と比較して転帰の悪化が示唆された。ウイルス性肝炎が疑われる場合のアセトアミノフェン使用には注意が必要であることを臨床的に示した重要な研究である。
+    </div>
+
+    <div class="card-footer">
+      <span class="pmid">PMID: 38994834</span>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <a class="btn-doi" href="https://doi.org/10.14309/ajg.0000000000002941" target="_blank" rel="noopener">DOI</a>
+        <a class="btn-pubmed" href="https://pubmed.ncbi.nlm.nih.gov/38994834/" target="_blank" rel="noopener">PubMed</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /articles -->
+
+<footer>
+  <p>データソース: PubMed (NCBI) ／ インパクトファクターは 2024–2025年版 Journal Citation Reports に基づく概算値</p>
+  <p style="margin-top:0.3rem;">生成日: 2026年4月16日 ／ 検索キーワード: acetaminophen, paracetamol, clinical trial/study, 2024–2026</p>
+</footer>
+
+</body>
+</html>
